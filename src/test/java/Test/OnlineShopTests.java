@@ -4,15 +4,17 @@ import Businessobjects.Item;
 import Businessobjects.User;
 import Dataproviders.Dataproviders;
 import org.openqa.selenium.By;
-import org.testng.annotations.DataProvider;
 import Pages.*;
 import org.testng.Assert;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.*;
-
+import java.util.Properties;
+import static utils.PropertyReader.*;
 
 public class OnlineShopTests {
+
+
     public ChromeDriver driver;
 
     @BeforeTest
@@ -23,16 +25,24 @@ public class OnlineShopTests {
 
     @Test (dataProvider = "user", dataProviderClass = Dataproviders.class,groups = "Login")
     public void login(User user) {
-        driver.get("http://automationpractice.com/index.php");
+
+
+
+        //driver.get("http://automationpractice.com/index.php");
+
+        Properties p = readProperties();
+        driver.get((p.getProperty("url.BaseURL")));
 
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
-        loginPage.login(user.getEmail(), user.getPassword() );
+        loginPage.login(user.getEmail(), user.getPassword());
 
 
 
 
 
     }
+
+
 
     @Test (dependsOnGroups = "Login", dataProvider = "item", dataProviderClass = Dataproviders.class)
     public void searchItemThenAddToCartAndProceed (Item item) {

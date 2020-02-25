@@ -11,7 +11,9 @@ public class User {
     public void setPassword(String password) {this.password = password;}
 
     public User() {
-        this.email = "rrtest@mailinator.com";
-        this.password = "654321";
+       /* this.email = "rrtest@mailinator.com";
+        this.password = "654321";*/
+       this.email = System.getProperty("user.email");
+       this.password = System.getProperty("user.password");
     }
 }

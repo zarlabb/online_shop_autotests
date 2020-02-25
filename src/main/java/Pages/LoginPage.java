@@ -4,8 +4,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.concurrent.TimeUnit;
+
 public class LoginPage {
     final WebDriver driver;
+
+
 
     @FindBy (xpath = "//a[@title='Log in to your customer account']")
     private WebElement loginButton;
@@ -23,6 +27,7 @@ public class LoginPage {
 
     public void login(String email, String password) {
         loginButton.click();
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         emailField.sendKeys(email);
         passwordField.sendKeys(password);
         signInButton.click();
